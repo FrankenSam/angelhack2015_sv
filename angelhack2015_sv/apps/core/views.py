@@ -17,6 +17,13 @@ from angelhack2015_sv.apps.parse.models import *
 
 def index(request):
     context = {}
+    tagList = []
+    context['tagList'] = Email.objects.values('tag')
+    tagSet = context['tagList']
+    
+    for tag in tagSet:
+    	tagList.append(tag['tag'][0])
+   	print tagList
     context['emailList'] = Email.objects.filter(completed=False)
     return render(request, 'core/index.html', context)
 
